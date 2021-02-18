@@ -69,7 +69,6 @@ resource "aws_s3_bucket" "bucket" {
 resource "aws_s3_bucket_public_access_block" "bucket" {
   count = var.block_public_access ? 1 : 0
 
-  depends_on = [aws_s3_bucket_policy.bucket_policy]
 
   bucket                  = aws_s3_bucket.bucket.id
   block_public_acls       = true
