@@ -78,31 +78,6 @@ resource "aws_s3_bucket_public_access_block" "bucket" {
   restrict_public_buckets = true
 }
 
-# grant the role access to the bucket
-resource "aws_s3_bucket_policy" "bucket_policy" {
-
-  depends_on = [aws_s3_bucket.bucket]
-  bucket = aws_s3_bucket.bucket.id
-
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [ "s3:*" ],
-      "Principal": "*",
-      "Resource": [
-        "${aws_s3_bucket.bucket.arn}",
-        "${aws_s3_bucket.bucket.arn}/*"
-      ]
-    }
-  ]
-}
-EOF
-
-}
-
 # the created bucket 
 output "bucket" {
   value = aws_s3_bucket.bucket.bucket
