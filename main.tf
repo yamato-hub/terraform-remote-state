@@ -4,15 +4,6 @@
  * Useful for creating a common bucket naming convention and attaching a bucket policy using the specified role.
  */
 
-# the primary role that will be used to access the tf remote state
-variable "role" {
-}
-
-# additional roles that should be granted access to the tfstate
-variable "additional_roles" {
-  type = list
-  default = []
-}
 
 # the application that will be using this remote state
 variable "application" {
@@ -100,6 +91,7 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
     {
       "Effect": "Allow",
       "Action": [ "s3:*" ],
+      "Principal": "*",
       "Resource": [
         "${aws_s3_bucket.bucket.arn}",
         "${aws_s3_bucket.bucket.arn}/*"
